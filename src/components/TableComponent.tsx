@@ -23,6 +23,7 @@ import {
 import { RootState } from "../redux/reducers/rootReducer";
 import { ISingleUser, IUser } from "../util/model/IUser";
 import CustomToolbarComponent from "./CustomToolbarComponent";
+import '../assets/table.style.css';
 
 // Definizione delle props del componente
 interface TableComponentProps {}
