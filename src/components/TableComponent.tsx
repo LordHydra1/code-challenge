@@ -114,7 +114,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
     dataSource: data,
     queryString: 'email'
 }; */
-
+console.log(data)
   return (
     <>
       {toggleGrid && (
@@ -137,7 +137,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
                 field="firstName"
                 headerText="First Name"
                 showInColumnChooser={false}
-                template={(props: any) =>
+                template={(props: ISingleUser) =>
                   props.firstName === null ? (
                     <div>--</div>
                   ) : (
@@ -148,7 +148,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
               <ColumnDirective
                 field="lastName"
                 headerText="Last Name"
-                template={(props: any) =>
+                template={(props: ISingleUser) =>
                   props.lastName === null ? (
                     <div>--</div>
                   ) : (
@@ -160,7 +160,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
               <ColumnDirective
                 field="email"
                 headerText="Email"
-                template={(props: any) =>
+                template={(props: ISingleUser) =>
                   props.email === null ? (
                     <div>--</div>
                   ) : (
@@ -171,7 +171,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
               <ColumnDirective
                 field="gender"
                 headerText="Gender"
-                template={(props: any) =>
+                template={(props: ISingleUser) =>
                   props.gender === "male" ? (
                     <FaMale color="#0000FF" />
                   ) : (

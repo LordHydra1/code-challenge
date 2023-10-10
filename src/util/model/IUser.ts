@@ -6,11 +6,11 @@ export interface IUser {
 }
 
 export interface ISingleUser {
-    firstName:string;
+    firstName:string | null;
     lastName:string
     gender: Gender;
     age:number;
-    email:string | null ;
+    email:string | null;
 }
 
 

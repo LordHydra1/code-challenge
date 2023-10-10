@@ -65,7 +65,7 @@ export const mockUsers: IUser[] = [
   {
     id: 7,
     attributes: {
-      firstName: "",
+      firstName: null,
       lastName: "prova",
       email: "emptyName@example.com",
       age: 20,
@@ -77,7 +77,7 @@ export const mockUsers: IUser[] = [
     attributes: {
       firstName: "mockedUser",
       lastName: "emptyEmailAndFirstName",
-      email: "null",
+      email: null,
       age: 20,
       gender: Gender.FEMALE,
     },
