@@ -84,37 +84,24 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
     }
     if (grid && args.item.id === "Click") {
       const newUsersOdds = users.filter((user: IUser) => user.id % 2 === 0);
-      console.log(newUsersOdds);
       dispatch(removeOdds({ users: newUsersOdds }));
     }
     if (grid && args.item.id === "Column") {
       grid.columnChooserModule.openColumnChooser(200, 50);
     }
-    if (grid && args.item.id === "Female") {
-      const filteredListFemale = gridData.filter(
-        (user) => user.gender === "female"
-      );
-      SetData(filteredListFemale);
-    }
-    if (grid && args.item.id === "Male") {
-      const filteredListMale = gridData.filter(
-        (user) => user.gender === "male"
-      );
-      SetData(filteredListMale);
+    if (args.item.id === "Female" || args.item.id === "Male") {
+      let gender = args.item.id;
+      filterUserByGender(gender);
     }
   };
 
-  /*   const childGridOptions = {
-    columns: [
-        { field: 'email', headerText: 'Order ID', textAlign: 'Right', width: 120 },
-        { field: 'email', headerText: 'Customer ID', width: 150 },
-        { field: 'email', headerText: 'Ship City', width: 150 },
-        { field: 'email', headerText: 'Ship Name', width: 150 }
-    ],
-    dataSource: data,
-    queryString: 'email'
-}; */
-console.log(data)
+  const filterUserByGender = (genderValue: string) => {
+    const filteredList = gridData.filter(
+      (user) => user.gender === genderValue.toLocaleLowerCase()
+    );
+    SetData(filteredList);
+  };
+
   return (
     <>
       {toggleGrid && (

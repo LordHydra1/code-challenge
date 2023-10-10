@@ -16,8 +16,9 @@ function* fetchDataWorker(action: any): any {
   const { debounce: shouldDebounce } = action.payload; // Estrai il parametro 'debounce' dall'azione
   if (shouldDebounce) {
     // Utilizziamo il 'debounce' per gestire il debounce solo quando 'shouldDebounce' è true
+    let ms = 300
     yield debounce(300, "FETCH_USER_REQUEST", fetchDataWorker);
-    console.log("debounced");
+    console.log("debounced by: ", ms, "ms");
   }
 
   try {
