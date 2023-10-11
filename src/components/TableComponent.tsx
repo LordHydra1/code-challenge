@@ -16,14 +16,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaFemale, FaMale } from "react-icons/fa";
+
+import { RootState } from "../redux/reducers/rootReducer";
+import { ISingleUser, IUser } from "../util/model/IUser";
+import CustomToolbarComponent from "./CustomToolbarComponent";
+import "../assets/table.style.css";
+import { DataManager, Query } from "@syncfusion/ej2-data";
 import {
   fetchusersRequest,
   removeOdds,
 } from "../redux/actions/userActions/userActions";
-import { RootState } from "../redux/reducers/rootReducer";
-import { ISingleUser, IUser } from "../util/model/IUser";
-import CustomToolbarComponent from "./CustomToolbarComponent";
-import '../assets/table.style.css';
 
 // Definizione delle props del componente
 interface TableComponentProps {}
@@ -35,7 +37,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
   const { pending, users, error } = useSelector(
     (state: RootState) => state.users
   );
-
+  
   // Definizione delle opzioni della toolbar
   const toolbarOptions: object[] = [
     { text: "Nascondi Dispari", tooltipText: "Nascondi Dispari", id: "Click" },
@@ -51,8 +53,14 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
     pageSizes: true,
   };
 
-  // Opzioni di editing
+  // Opzioni di editing 
   const editOptions = { allowEditing: true };
+
+  let childGridOptions: GridModel = {
+    columns: [{ field: "email", headerText: "email", width: 120 }],
+    dataSource: data,
+    queryString: "email",
+  };
 
   // Mappa i dati degli utenti per il componente Grid
   const gridData = users.map((user: IUser) => user.attributes);
@@ -118,6 +126,7 @@ const TableComponent: React.FC<TableComponentProps> = (props) => {
             showColumnChooser={true}
             pageSettings={pageOptions}
             editSettings={editOptions}
+            childGrid={childGridOptions}
           >
             {/* Definizione delle colonne */}
             <ColumnsDirective>

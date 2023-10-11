@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import { ToolbarComponent } from "@syncfusion/ej2-react-navigations";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/reducers/rootReducer";
-import { IUser } from "../util/model/IUser";
+import { ISingleUser, IUser } from "../util/model/IUser";
 import {
   fetchusersRequest,
   removeOdds,
@@ -10,8 +10,8 @@ import {
 import { useDispatch } from "react-redux";
 
 interface CustomToolbarComponentProps {
-    setGridData: any;
-    users: any;
+  setGridData: React.Dispatch<React.SetStateAction<ISingleUser[] | undefined>>;
+  users: ISingleUser[];
 }
 
 const CustomToolbarComponent: FunctionComponent<
