@@ -1,4 +1,3 @@
-import { Gender } from "../../../util/enum/genrder";
 import { UserTypes } from "../../Actiontypes/userTypes";
 import {
   FetchUsersFailure,
@@ -7,32 +6,43 @@ import {
   FetchUsersRequestPayload,
   FetchUsersSuccess,
   FetchUsersSuccessPayload,
-  RemoveOdds,
-  RemoveOddsPayload,
+  FilterUsersByGender,
+  FilterUsersByGenderPayload,
+  RemoveUsersOdds,
+  RemoveUsersOddsPayload,
 } from "../../types/types";
 
 export const fetchusersRequest = (
   payload: FetchUsersRequestPayload
 ): FetchUsersRequest => ({
   type: UserTypes.FETCH_USER_REQUEST,
-  payload,
+  payload
 });
 
 export const fetchUsersSuccess = (
   payload: FetchUsersSuccessPayload
 ): FetchUsersSuccess => ({
   type: UserTypes.FETCH_USER_SUCCESS,
-  payload,
+  payload
 });
 
 export const fetchUsersFailure = (
   payload: FetchUsersFailurePayload
 ): FetchUsersFailure => ({
   type: UserTypes.FETCH_USER_FAILURE,
-  payload,
+  payload
 });
 
-export const removeOdds = (payload: RemoveOddsPayload): RemoveOdds => ({
-  type: UserTypes.REMOVE_ODDS,
-  payload,
+export const removeUsersOdds = (
+  payload: RemoveUsersOddsPayload
+): RemoveUsersOdds => ({
+  type: UserTypes.REMOVE_USERS_ODDS,
+  payload
+});
+
+export const filterUsersByGender = (
+  payload: FilterUsersByGenderPayload
+): FilterUsersByGender => ({
+  type: UserTypes.FILTER_USERS_BY_GENDER,
+  payload
 });

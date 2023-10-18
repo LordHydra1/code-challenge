@@ -1,46 +1,50 @@
-import { FunctionComponent } from "react";
 import { ToolbarComponent } from "@syncfusion/ej2-react-navigations";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/reducers/rootReducer";
-import { ISingleUser, IUser } from "../util/model/IUser";
+import { FunctionComponent } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { ReactComponent as Refresh } from "../assets/icons/refresh.icon.svg";
+import { ReactComponent as UserSlash } from "../assets/icons/user.slash.svg";
+import "../assets/styles/custom.toolbar.style.css";
 import {
   fetchusersRequest,
-  removeOdds,
+  removeUsersOdds,
 } from "../redux/actions/userActions/userActions";
-import { useDispatch } from "react-redux";
+import { RootState } from "../redux/reducers/rootReducer";
+import { filterOutOddUsers } from "../util/functions/general/filteringFunctions";
+import ButtonComponent from "./ButtonComponent";
+import GenderFilterTemplateComponent from "./GenderFilterTempalteComponent";
 
-interface CustomToolbarComponentProps {
-  setGridData: React.Dispatch<React.SetStateAction<ISingleUser[] | undefined>>;
-  users: ISingleUser[];
-}
-
-const CustomToolbarComponent: FunctionComponent<
-  CustomToolbarComponentProps
-> = (props: CustomToolbarComponentProps) => {
+const CustomToolbarComponent: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { users } = useSelector((state: RootState) => state.users);
 
   const removeOddsOutOfThebox = () => {
-    const newUsersOdds = users.filter((user: IUser) => user.id % 2 === 0);
-    dispatch(removeOdds({ users: newUsersOdds }));
+    let totalNumberOfUsers = filterOutOddUsers(users);
+    dispatch(removeUsersOdds({ users: totalNumberOfUsers }));
   };
 
   const refreshData = () => {
     dispatch(fetchusersRequest({ debounce: false }));
-    props.setGridData(props.users);
   };
 
   return (
     <ToolbarComponent>
       <div>
-        <button className="e-btn e-tbar-btn" onClick={removeOddsOutOfThebox}>
-          Rimuovi Dispari Out Of the box
-        </button>
-      </div>
-      <div>
-        <button className="e-btn e-tbar-btn" onClick={refreshData}>
-          Refresh Users State from Redux
-        </button>
+        <h2>Custom Toolbar</h2>;
+        <ButtonComponent
+          text=""
+          onClickCallBackFunction={removeOddsOutOfThebox}
+          icon={true}
+          typeIcon={UserSlash}
+          dataTitle={"Remove Users Odds"}
+        />
+        <ButtonComponent
+          text=""
+          onClickCallBackFunction={refreshData}
+          icon={true}
+          typeIcon={Refresh}
+          dataTitle="Refresh Users"
+        />
+        <GenderFilterTemplateComponent />
       </div>
     </ToolbarComponent>
   );

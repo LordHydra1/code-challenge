@@ -1,0 +1,15 @@
+.male-icon {
+    background-image: url("../icons/male.icon.svg");
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+
+}
+
+.female-icon {
+    background-image: url("../icons/female.icon.svg");
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+
+}

@@ -1,5 +1,4 @@
-import { Gender } from "../../util/enum/genrder";
-import { IUser } from "../../util/model/IUser";
+import { IUser } from "../../util/models/IUser";
 import { UserTypes } from "../Actiontypes/userTypes";
 
 export interface UsersState {
@@ -7,6 +6,7 @@ export interface UsersState {
   users: IUser[];
   error: string | null;
   debounce: boolean;
+  filteredUsers: IUser[];
 }
 
 export interface FetchUsersSuccessPayload {
@@ -16,12 +16,15 @@ export interface FetchUsersSuccessPayload {
 export interface FetchUsersFailurePayload {
   error: string;
 }
-export interface RemoveOddsPayload {
+export interface RemoveUsersOddsPayload {
   users: IUser[];
 }
 
 export interface FetchUsersRequestPayload {
   debounce: boolean;
+}
+export interface FilterUsersByGenderPayload {
+  gender: string;
 }
 export interface FetchUsersRequest {
   type: typeof UserTypes.FETCH_USER_REQUEST;
@@ -33,11 +36,15 @@ export type FetchUsersSuccess = {
   payload: FetchUsersSuccessPayload;
 };
 
-export interface RemoveOdds {
-  type: typeof UserTypes.REMOVE_ODDS;
-  payload: RemoveOddsPayload;
+export interface RemoveUsersOdds {
+  type: typeof UserTypes.REMOVE_USERS_ODDS;
+  payload: RemoveUsersOddsPayload;
 }
 
+export interface FilterUsersByGender {
+  type: typeof UserTypes.FILTER_USERS_BY_GENDER;
+  payload: FilterUsersByGenderPayload;
+}
 
 export type FetchUsersFailure = {
   type: typeof UserTypes.FETCH_USER_FAILURE;
@@ -45,7 +52,8 @@ export type FetchUsersFailure = {
 };
 
 export type UsersActions =
-  | RemoveOdds
+  | FilterUsersByGender 
+  | RemoveUsersOdds
   | FetchUsersRequest
   | FetchUsersSuccess
   | FetchUsersFailure;

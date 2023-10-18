@@ -1,23 +1,18 @@
-import axios from "axios";
 import { all, call, debounce, put, takeLatest } from "redux-saga/effects";
-import { IUser } from "../../../util/model/IUser";
+import { getUsers } from "../../../util/functions/api/apiFunctions";
+import { mockUsers } from "../../../util/mock/mockUsers";
 import { UserTypes } from "../../Actiontypes/userTypes";
 import {
   fetchUsersFailure,
   fetchUsersSuccess,
 } from "../../actions/userActions/userActions";
-import { mockUsers } from "../../../util/mock/mockUsers";
-
-const apiUrl = "http://localhost:1337/api/user-alls/";
-
-const getUsers = () => axios.get<IUser[]>(apiUrl);
 
 function* fetchDataWorker(action: any): any {
   const { debounce: shouldDebounce } = action.payload; // Estrai il parametro 'debounce' dall'azione
   if (shouldDebounce) {
     // Utilizziamo il 'debounce' per gestire il debounce solo quando 'shouldDebounce' è true
-    let ms = 300
-    yield debounce(300, "FETCH_USER_REQUEST", fetchDataWorker);
+    let ms = 300;
+    yield debounce(ms, UserTypes.FETCH_USER_REQUEST, fetchDataWorker);
     console.log("debounced by: ", ms, "ms");
   }
 
@@ -25,7 +20,7 @@ function* fetchDataWorker(action: any): any {
     const response = yield call(getUsers);
     yield put(
       fetchUsersSuccess({
-        users: response.data.data,
+        users: response.data.value,
       })
     );
   } catch (e: any) {
@@ -34,7 +29,7 @@ function* fetchDataWorker(action: any): any {
         error: e.message,
       })
     );
-    yield put(fetchUsersSuccess({users: mockUsers}))
+    yield put(fetchUsersSuccess({ users: mockUsers }));
   }
 }
 
