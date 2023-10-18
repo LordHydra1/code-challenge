@@ -28,7 +28,7 @@ const GenderFilterTemplateComponent: FunctionComponent = () => {
       id="Gender"
       fields={fieldsForFilter}
       allowFiltering={true}
-      placeholder="Select a Gender"
+      placeholder="Filter by Gender"
       dataSource={genderOptionsDropDown}
       value={selectedGender}
       change={onChangeSelectGender}
