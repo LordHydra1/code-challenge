@@ -19,7 +19,7 @@ const ButtonComponent: FunctionComponent<ButtonComponentProps> = (
       onClick={() =>
         props.onClickCallBackFunction && props.onClickCallBackFunction()
       }
-      className={props.className}
+      className={`${props.className} button`}
       data-title={props.dataTitle}
     >
       <div>

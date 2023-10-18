@@ -29,7 +29,7 @@ const CustomToolbarComponent: FunctionComponent = () => {
   return (
     <ToolbarComponent>
       <div>
-        <h2>Custom Toolbar</h2>;
+        <h2>Custom Toolbar</h2>
         <ButtonComponent
           text=""
           onClickCallBackFunction={removeOddsOutOfThebox}

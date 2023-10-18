@@ -1,15 +1,15 @@
-  button:hover {
+  .button:hover {
     transform: translateY(-4px) translateX(-2px);
     box-shadow: 2px 5px 0 0 black;
     background-color: azure
   }
 
-  button:active {
+  .button:active {
     transform: translateY(2px) translateX(1px);
     box-shadow: 0 0 0 0 black;
   }
 
-  button {
+  .button {
     position: relative;
     background-color: #f8f8f8;
     color: black;
@@ -25,7 +25,7 @@
     content: '';
   }
 
-  button::before {
+  .button::before {
     content: attr(data-title);
     position: absolute;
     top: 100%;
@@ -39,6 +39,6 @@
     display: none;
   }
 
-  button:hover::before {
+  .button:hover::before {
     display: block;
   }
