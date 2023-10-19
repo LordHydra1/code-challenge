@@ -5,6 +5,7 @@ import {
 } from "@syncfusion/ej2-react-grids";
 import { Gender } from "../enums/gender";
 import { IUser } from "../models/IUser";
+import { IColumnsDefinitions } from "../models/IColumnsDefinitions";
 
 // Definizione delle opzioni della toolbar
 const toolbarOptions: object[] = [
@@ -19,7 +20,10 @@ const toolbarOptions: object[] = [
   { text: "ExcelExport" },
 ];
 
-const customToolbarOptions = [{ id: 1, text: 'Refresh Table Data'}, { id: 2, text:  'Remove Users Odds'}, ];
+const customToolbarOptions = [
+  { id: 1, text: "Refresh Table Data" },
+  { id: 2, text: "Remove Users Odds" },
+];
 
 const genderOptionsDropDown = [
   { text: "Male", value: Gender.MALE, iconCss: "male-icon" },
@@ -50,32 +54,44 @@ const filterOptions: FilterSettingsModel = {
 // Opzioni di editing
 const editOptions = { allowEditing: true };
 
-const columnsDefinitions = [
+const columnsDefinitions: IColumnsDefinitions[] = [
   {
     id: 1,
     fieldName: "FirstName" as IUser["FirstName"],
-    options: { showInColumnChooser: false, allowFiltering: false, allowEditing: true},
+    options: {
+      showInColumnChooser: false,
+      allowFiltering: false,
+      allowEditing: true,
+    },
   },
   {
     id: 2,
     fieldName: "LastName" as IUser["LastName"],
-    options: { showInColumnChooser: true, allowFiltering: true, allowEditing: true  },
+    options: {
+      showInColumnChooser: true,
+      allowFiltering: true,
+      allowEditing: true,
+    },
   },
   {
     id: 3,
     fieldName: "Age",
-    options: { showInColumnChooser: true, allowFiltering: false, allowEditing: false },
+    options: {
+      showInColumnChooser: true,
+      allowFiltering: false,
+      allowEditing: false,
+    },
   },
 ];
 
 export {
   childGridOptions,
+  columnsDefinitions,
+  customToolbarOptions,
   editOptions,
   fieldsForFilter,
   filterOptions,
   genderOptionsDropDown,
   pageOptions,
   toolbarOptions,
-  columnsDefinitions,
-  customToolbarOptions
 };

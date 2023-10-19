@@ -40,6 +40,7 @@ import { ReactComponent as Hide } from "../assets/icons/hide.icon.svg";
 import { ReactComponent as Show } from "../assets/icons/show.icon.svg";
 import { ClickEventArgs } from "@syncfusion/ej2-react-navigations";
 import { Gender } from "../util/enums/gender";
+import { IColumnsDefinitions } from "../util/models/IColumnsDefinitions";
 
 const TableComponent: React.FC = () => {
   const dispatch = useDispatch();
@@ -136,12 +137,12 @@ const TableComponent: React.FC = () => {
             >
               {/* Definizione delle colonne */}
               <ColumnsDirective>
-                {columnsDefinitions.map((value: any, index: number) => (
+                {columnsDefinitions.map((value: IColumnsDefinitions) => (
                   <ColumnDirective
                     key={value.id}
                     field={value.fieldName}
                     headerText={value.fieldName}
-                    showInColumnChooser={value.options.showColumnChooser}
+                    showInColumnChooser={value.options.showInColumnChooser}
                     allowFiltering={value.options.allowFiltering}
                     allowEditing={value.options.allowEditing}
                     template={(props: IUser) => (
