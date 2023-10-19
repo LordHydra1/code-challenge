@@ -5,6 +5,7 @@ import {
   DetailRow,
   Edit,
   ExcelExport,
+  ExcelQueryCellInfoEventArgs,
   Filter,
   GridComponent,
   Inject,
@@ -37,6 +38,8 @@ import CustomToolbarComponent from "./CustomToolbarComponent";
 import { ReactComponent as Refresh } from "../assets/icons/refresh.icon.svg";
 import { ReactComponent as Hide } from "../assets/icons/hide.icon.svg";
 import { ReactComponent as Show } from "../assets/icons/show.icon.svg";
+import { ClickEventArgs } from "@syncfusion/ej2-react-navigations";
+import { Gender } from "../util/enums/gender";
 
 const TableComponent: React.FC = () => {
   const dispatch = useDispatch();
@@ -59,7 +62,7 @@ const TableComponent: React.FC = () => {
   let grid: GridComponent | null;
 
   // Gestisce il click sulla toolbar
-  const toolbarClickHandler = (args: any) => {
+  const toolbarClickHandler = (args: ClickEventArgs) => {
     if (grid && args.item.id === "grid_excelexport") {
       grid.excelExport();
     }
@@ -76,12 +79,22 @@ const TableComponent: React.FC = () => {
     }
   };
 
+  const excelQueryCellInfo = (args: ExcelQueryCellInfoEventArgs) => {
+    if (args.column.headerText === "Gender") {
+      if (args.value === "Male") {
+        args.value = "Male (Gender)";
+      } else {
+        args.value = "Female (Gender)";
+      }
+    }
+  };
+
   const onLoad = useCallback(() => {
     if (users) {
       const emailsArray = users?.map((user) => user.Emails);
       const result = emailsArray?.map((childEmails) => ({
         emails: childEmails.filter((email) => (
-          <CustomFieldTemplateComponent fieldValue={email.replace(",", " ")} />
+          <CustomFieldTemplateComponent fieldValue={email} />
         )),
       }));
       childGridOptions.dataSource = result;
@@ -105,6 +118,7 @@ const TableComponent: React.FC = () => {
           <>
             <CustomToolbarComponent />
             <GridComponent
+              excelQueryCellInfo={excelQueryCellInfo}
               dataSource={filteredUsers.length ? filteredUsers : users}
               id="grid"
               allowExcelExport={true}

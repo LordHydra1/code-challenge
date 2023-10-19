@@ -11,7 +11,7 @@ import {
 import { RootState } from "../redux/reducers/rootReducer";
 import { filterOutOddUsers } from "../util/functions/general/filteringFunctions";
 import ButtonComponent from "./ButtonComponent";
-import GenderFilterTemplateComponent from "./GenderFilterTempalteComponent";
+import GenderFilterTemplateComponent from "./GenderFilterTemplateComponent";
 
 const CustomToolbarComponent: FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -31,14 +31,12 @@ const CustomToolbarComponent: FunctionComponent = () => {
       <div>
         <h2>Custom Toolbar</h2>
         <ButtonComponent
-          text=""
           onClickCallBackFunction={removeOddsOutOfThebox}
           icon={true}
           typeIcon={UserSlash}
           dataTitle={"Remove Users Odds"}
         />
         <ButtonComponent
-          text=""
           onClickCallBackFunction={refreshData}
           icon={true}
           typeIcon={Refresh}

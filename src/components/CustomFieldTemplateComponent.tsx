@@ -1,14 +1,23 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 interface CustomFieldTemplateProps {
-  fieldValue: any;
+  fieldValue: string | number | null | Array<any>;
 }
 
 const CustomFieldTemplateComponent: FunctionComponent<
   CustomFieldTemplateProps
 > = (props: CustomFieldTemplateProps) => {
-  function renderPropertyOrPlaceholder(value: string | number | null) {
-    return value === null ? <div>--</div> : <div>{value}</div>;
-  }
+  const renderPropertyOrPlaceholder = (
+    value: string | number | null | Array<any>
+  ) => {
+    if (value === null) {
+      return <div>--</div>;
+    } else if (Array.isArray(value) && value.length === 0) {
+      return <div>--</div>; // Value is an empty array
+    } else {
+      return <div>{value}</div>;
+    }
+  };
+
   return <>{renderPropertyOrPlaceholder(props.fieldValue)}</>;
 };
 

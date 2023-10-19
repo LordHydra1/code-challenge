@@ -5,6 +5,6 @@
   margin-top: 10px;
 }
 .fixedHeight {
-  height: 450px;
+  height: auto;
   margin: 10px;
 }
