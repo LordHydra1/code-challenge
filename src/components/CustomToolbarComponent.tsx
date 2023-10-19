@@ -2,7 +2,7 @@ import { ToolbarComponent } from "@syncfusion/ej2-react-navigations";
 import { FunctionComponent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ReactComponent as Refresh } from "../assets/icons/refresh.icon.svg";
-import { ReactComponent as UserSlash } from "../assets/icons/user.slash.svg";
+import { ReactComponent as UserSlash } from "../assets/icons/user.slash.icon.svg";
 import "../assets/styles/custom.toolbar.style.css";
 import {
   fetchusersRequest,

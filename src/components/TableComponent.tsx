@@ -12,8 +12,12 @@ import {
   Page,
   Toolbar,
 } from "@syncfusion/ej2-react-grids";
+import { ClickEventArgs } from "@syncfusion/ej2-react-navigations";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ReactComponent as Hide } from "../assets/icons/hide.icon.svg";
+import { ReactComponent as Refresh } from "../assets/icons/refresh.icon.svg";
+import { ReactComponent as Show } from "../assets/icons/show.icon.svg";
 import "../assets/styles/table.style.css";
 import {
   fetchusersRequest,
@@ -30,17 +34,12 @@ import {
   toolbarOptions,
 } from "../util/constants/configTableConst";
 import { filterOutOddUsers } from "../util/functions/general/filteringFunctions";
+import { IColumnsDefinitions } from "../util/models/IColumnsDefinitions";
 import { IUser } from "../util/models/IUser";
 import ButtonComponent from "./ButtonComponent";
 import CustomColumnGenderTemplate from "./CustomColumnGenderTemplate";
 import CustomFieldTemplateComponent from "./CustomFieldTemplateComponent";
 import CustomToolbarComponent from "./CustomToolbarComponent";
-import { ReactComponent as Refresh } from "../assets/icons/refresh.icon.svg";
-import { ReactComponent as Hide } from "../assets/icons/hide.icon.svg";
-import { ReactComponent as Show } from "../assets/icons/show.icon.svg";
-import { ClickEventArgs } from "@syncfusion/ej2-react-navigations";
-import { Gender } from "../util/enums/gender";
-import { IColumnsDefinitions } from "../util/models/IColumnsDefinitions";
 
 const TableComponent: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,19 +47,16 @@ const TableComponent: React.FC = () => {
   const { users, filteredUsers } = useSelector(
     (state: RootState) => state.users
   );
+  let grid: GridComponent | null;
 
   // Effetto per caricare i dati iniziali
   useEffect(() => {
     dispatch(fetchusersRequest({ debounce: false }));
   }, [dispatch]);
 
-  // Funzione per gestire il click sulla toolbar
   const watchFetchData = () => {
     dispatch(fetchusersRequest({ debounce: true }));
   };
-  // Effetto per aggiornare i dati quando 'users' cambia
-
-  let grid: GridComponent | null;
 
   // Gestisce il click sulla toolbar
   const toolbarClickHandler = (args: ClickEventArgs) => {
@@ -80,6 +76,7 @@ const TableComponent: React.FC = () => {
     }
   };
 
+  //Cerca in base al gender il valore Male/Female e lo trasforma in excel a Male(Gender)/Female(Gender)
   const excelQueryCellInfo = (args: ExcelQueryCellInfoEventArgs) => {
     if (args.column.headerText === "Gender") {
       if (args.value === "Male") {
@@ -90,15 +87,23 @@ const TableComponent: React.FC = () => {
     }
   };
 
+  //renderizza in una child grid le email
+  const renderEmailOrNull = (emailsArray: string[][]) => {
+    const result = emailsArray.map((childEmails) => ({
+      emails:
+        childEmails.length > 0
+          ? childEmails.filter((email) => {
+              return email;
+            })
+          : ["--"],
+    }));
+    childGridOptions.dataSource = result;
+  };
+
   const onLoad = useCallback(() => {
     if (users) {
       const emailsArray = users?.map((user) => user.Emails);
-      const result = emailsArray?.map((childEmails) => ({
-        emails: childEmails.filter((email) => (
-          <CustomFieldTemplateComponent fieldValue={email} />
-        )),
-      }));
-      childGridOptions.dataSource = result;
+      renderEmailOrNull(emailsArray);
     }
   }, [users]);
 
@@ -114,7 +119,12 @@ const TableComponent: React.FC = () => {
 
   return (
     <>
-      <div className="fixedHeight">
+      <div
+        style={{
+          visibility: toggleGrid ? "visible" : "hidden",
+          height: toggleGrid ? "auto" : 450,
+        }}
+      >
         {toggleGrid && users && (
           <>
             <CustomToolbarComponent />
